@@ -30,7 +30,7 @@ body {
 .dino {
   position: absolute;
   bottom: 0;
-  background-image: url(img/bob.png);
+  background-image: url(bob.png);
   width: 280px;
   height: 130px;
   background-size: 280px;
@@ -41,7 +41,7 @@ body {
 .cacto {
   position: absolute;
   bottom: 0;
-  background-image: url(img/cacto.png);
+  background-image: url(cacto.png);
   width: 35px;
   height: 70px;
   background-size: 35px;
