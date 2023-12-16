@@ -26,7 +26,8 @@ body {
     left: 50px;
     width: 40px;
     height: 40px;
-    background-color: #4CAF50;
+    background-image: url(https://i.im.ge/2023/12/16/EVlSPM.ad16f1e99271efc.th.png);
+    background-repeat: no-repeat;
     transition: 0.2s ease-out;
 }
 
