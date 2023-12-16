@@ -1,69 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const dino = document.getElementById("dino");
-    const suelo = document.getElementById("suelo");
-    const juego = document.getElementById("juego");
+const dino = document.getElementById('dino');
+const obstacle = document.getElementById('obstacle');
+const gameOver = document.getElementById('gameOver');
+const scoreElement = document.getElementById('score');
 
-    let saltando = false;
+let isJumping = false;
+let score = 0;
 
-    document.addEventListener("keydown", function (event) {
-        if (event.code === "Space" && !saltando) {
-            saltar();
-        }
-    });
+document.addEventListener('keydown', jump);
 
-    function saltar() {
-        saltando = true;
+function jump(event) {
+  if (event.code === 'Space' && !isJumping) {
+    isJumping = true;
+    let position = 0;
+    const jumpInterval = setInterval(() => {
+      if (position >= 150) {
+        clearInterval(jumpInterval);
+        isJumping = false;
+      }
+      position += 30;
+      dino.style.bottom = position + 'px';
+    }, 20);
+  }
+}
 
-        let altura = 0;
-        const intervalo = setInterval(function () {
-            if (altura >= 150) {
-                clearInterval(intervalo);
-                descender();
-            } else {
-                altura += 5;
-                dino.style.bottom = altura + "px";
-            }
-        }, 20);
+function generateObstacle() {
+  const obstacleInterval = setInterval(() => {
+    const obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue('right'));
+    if (obstacleLeft < 0) {
+      score++;
+      scoreElement.textContent = score;
     }
-
-    function descender() {
-        let altura = 150;
-        const intervalo = setInterval(function () {
-            if (altura <= 20) {
-                clearInterval(intervalo);
-                saltando = false;
-            } else {
-                altura -= 5;
-                dino.style.bottom = altura + "px";
-            }
-        }, 20);
+    if (obstacleLeft > 0 && obstacleLeft < 60 && isJumping) {
+      clearInterval(obstacleInterval);
+      gameOver.style.display = 'block';
     }
+    obstacle.style.right = obstacleLeft - 5 + 'px';
+  }, 20);
+}
 
-    function colision() {
-        const dinoRect = dino.getBoundingClientRect();
-        const obstaculo = document.querySelector(".obstaculo");
-        const obstaculoRect = obstaculo.getBoundingClientRect();
-
-        return !(
-            dinoRect.bottom < obstaculoRect.top ||
-            dinoRect.top > obstaculoRect.bottom ||
-            dinoRect.right < obstaculoRect.left ||
-            dinoRect.left > obstaculoRect.right
-        );
-    }
-
-    function gameOver() {
-        alert("¡Game Over!");
-        location.reload(); // Recargar la página para reiniciar el juego
-    }
-
-    function actualizarJuego() {
-        if (colision()) {
-            gameOver();
-        } else {
-            requestAnimationFrame(actualizarJuego);
-        }
-    }
-
-    actualizarJuego();
-});
+generateObstacle();
