@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elisson Dino</title>
-    <link rel="stylesheet" href="dino.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dino.css">
+  <title>Elisson Dino Game</title>
 </head>
 <body>
-    <div id="juego">
-        <div id="suelo"></div>
-        <div id="dino"></div>
-        <div class="obstaculo"></div>
-    </div>
-    <script src="dino.js"></script>
+  <div class="game-container">
+    <div class="dino" id="dino"></div>
+    <div class="obstacle" id="obstacle"></div>
+    <span id="score">0</span>
+    <div class="game-over" id="gameOver">Game Over</div>
+  </div>
+  <script src="dino.js"></script>
 </body>
 </html>
