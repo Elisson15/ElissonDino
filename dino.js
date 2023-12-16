@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function gameOver() {
-        alert("¡Game Over!");
+        alert("Perdeu Calabreso!");
         location.reload(); // Recargar la página para reiniciar el juego
     }
 
