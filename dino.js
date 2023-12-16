@@ -1,69 +1,40 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const dino = document.getElementById("dino");
-    const suelo = document.getElementById("suelo");
-    const juego = document.getElementById("juego");
+const dino = document.querySelector(".dino");
+const cacto = document.querySelector(".cacto");
+const score = document.querySelector(".score");
+let alreadyJump = false;
+let count = 0;
 
-    let saltando = false;
-
-    document.addEventListener("keydown", function (event) {
-        if (event.code === "Space" && !saltando) {
-            saltar();
-        }
-    });
-
-    function saltar() {
-        saltando = true;
-
-        let altura = 0;
-        const intervalo = setInterval(function () {
-            if (altura >= 150) {
-                clearInterval(intervalo);
-                descender();
-            } else {
-                altura += 5;
-                dino.style.bottom = altura + "px";
-            }
-        }, 20);
-    }
-
-    function descender() {
-        let altura = 150;
-        const intervalo = setInterval(function () {
-            if (altura <= 20) {
-                clearInterval(intervalo);
-                saltando = false;
-            } else {
-                altura -= 5;
-                dino.style.bottom = altura + "px";
-            }
-        }, 20);
-    }
-
-    function colision() {
-        const dinoRect = dino.getBoundingClientRect();
-        const obstaculo = document.querySelector(".obstaculo");
-        const obstaculoRect = obstaculo.getBoundingClientRect();
-
-        return !(
-            dinoRect.bottom < obstaculoRect.top ||
-            dinoRect.top > obstaculoRect.bottom ||
-            dinoRect.right < obstaculoRect.left ||
-            dinoRect.left > obstaculoRect.right
-        );
-    }
-
-    function gameOver() {
-        alert("Perdeu Calabreso!");
-        location.reload(); // Recargar la página para reiniciar el juego
-    }
-
-    function actualizarJuego() {
-        if (colision()) {
-            gameOver();
-        } else {
-            requestAnimationFrame(actualizarJuego);
-        }
-    }
-
-    actualizarJuego();
+document.addEventListener("keydown", (e) => {
+  if ((e.code === "ArrowUp") | (e.code === "Space")) {
+    jump();
+  }
 });
+
+function jump() {
+  if (!dino.classList.contains("jump")) {
+    dino.classList.add("jump");
+    alreadyJump = true;
+
+    setTimeout(() => {
+      dino.classList.remove("jump");
+      alreadyJump = false;
+    }, 1100);
+  }
+}
+
+setInterval(() => {
+  let dinoBottom = parseInt(
+    window.getComputedStyle(dino).getPropertyValue("bottom")
+  );
+  let cactoLeft = parseInt(
+    window.getComputedStyle(cacto).getPropertyValue("left")
+  );
+
+  if (cactoLeft > 40 && cactoLeft < 270 && dinoBottom <= 50 && !alreadyJump) {
+    alert(`Perdeu Calabreso! Seu score foi: ${count}`);
+    count = 0;
+  }
+
+  count++;
+  score.innerHTML = `SCORE: ${count}`;
+}, 10);
