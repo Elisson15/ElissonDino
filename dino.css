@@ -26,22 +26,5 @@ body {
     left: 50px;
     width: 40px;
     height: 40px;
-    background-color: #1111ff;
-    transition: 0.2s ease-out;
-}
-
-.obstaculo {
-    position: absolute;
-    bottom: 20px;
-    left: 600px;
-    width: 20px;
-    height: 40px;
-    background-color: #FF0000;
-    animation: moverObstaculo 2s linear infinite;
-}
-
-@keyframes moverObstaculo {
-    to {
-        left: -20px;
-    }
+    background-color: #4CAF50;
 }
